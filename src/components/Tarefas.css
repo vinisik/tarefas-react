@@ -1,11 +1,55 @@
-* {
+#containerPrincipal {
     margin: 0 auto;
+    max-width: 70vw;
+    padding: 30px;
 }
 
-#containerPrincipal {
+#containerPrincipal Link {
+    text-decoration: none;
+}
+
+#containerSobre {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 70vw;
+    border: 2px solid #b4d3eb;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+#camposTarefa {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+}
+
+#camposTarefa input, textarea {
+    border: 2px solid #b4d3eb;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+textarea {
+    resize: none;
+}
+
+#tarefaContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;border: 2px solid #b4d3eb;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+#tituloTarefa {
+    font-weight: 600;
+}
+
+#tarefaDescricao {
+
 }
 
 label {
@@ -13,21 +57,83 @@ label {
 }
 
 input, textarea {
-    width: 50vw;
+    width: 100%;
     margin-bottom: 10px;
+}
+
+header {
+    background-color: rgb(0, 38, 255);
+}
+
+#menu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 70vw;
+}
+
+.menu-left {
+    margin-left: 0 auto ;
 }
 
 button {
     margin-right: 10px;
-    background-color: blue;
-    border: 1px solid black;
-    border-radius: 20px;
+    background-color: #c3e3fb;
+    border: none;
+    padding: 15px;
+    border-radius: 15px;
 }
 
 button:hover {
+    background-color: #b4d3eb;
     cursor: pointer;
 }
 
-#botoesContainer {
+.botoes {
+    display: inline;
+}
+
+.btn-criar-tarefa {
+    padding: 10px;
+}
+
+.icone {
+    padding: 5px;
+}
+
+.icone:hover {
+    cursor: pointer;
+}
+
+nav {
+    padding: 0;
+    margin: 0 auto;
     display: flex;
+
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+h2 {
+    color: white;
+}
+
+ul {
+    list-style: none;
+    max-width: 70vw;
+    margin: 0 auto;
+}
+
+ul li {
+    display: inline-block;
+}
+
+ul li a {
+    color: white;
+    padding: 20px;
+    text-decoration: none;
 }

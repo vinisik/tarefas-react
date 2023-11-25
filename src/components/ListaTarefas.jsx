@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FaPencil, FaTrashCan } from "react-icons/fa6";
 import { IoIosAdd } from "react-icons/io";
 import { VscTasklist } from "react-icons/vsc";
+import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
 import './Tarefas.css'
 
@@ -76,7 +76,6 @@ export default function ListaTarefas() {
             return (
               <div id="tarefaContainer" key={item.id}>
                 <div className="tarefa" >
-                  <div id="tarefaId">{item.id}</div>{" "}
                   <div id="tituloTarefa">{item.titulo}</div>{" "}
                   <div id="tarefaDescricao"> {item.descricao}</div> {"    "}
                 </div>
@@ -85,8 +84,8 @@ export default function ListaTarefas() {
                       className="icone"
                       onClick={() => editarTarefas(item.id)}
                     />
-                    <FaTrashCan
-                      className="icone"
+                    <MdDeleteForever
+                      className="icone iconeDeletar"
                       onClick={() => apagarTarefas(item.id)}
                     />
                   </div>

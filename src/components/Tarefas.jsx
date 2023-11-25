@@ -12,7 +12,7 @@ export default function Tarefas() {
   const [descricao, setDescricao] = useState("");
   const [operacao, setOperacao] = useState("");
 
-  const url = "https://api-react-tarefas.vercel.app/tarefas";
+  const url = "https://api-react-tarefas.vercel.app/tarefas/";
 
   useEffect(() => {
     

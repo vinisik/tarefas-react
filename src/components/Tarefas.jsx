@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { VscTasklist } from "react-icons/vsc";
 import { FaArrowLeft } from "react-icons/fa";
-import './Tarefas.css'
+import "./Tarefas.css";
 
 export default function Tarefas() {
   const [tarefas, setTarefas] = useState([]);
@@ -11,23 +11,36 @@ export default function Tarefas() {
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
   const [operacao, setOperacao] = useState("");
+  const [categoria, setCategoria] = useState("");
+
+  const [coresCategorias, setCoresCategorias] = useState({
+    Trabalho: "GoldenRod",
+    Estudo: "green",
+    Casa: "DarkSlateBlue",
+    Pessoal: "DarkCyan",
+    Outro: "grey",
+  });
 
   const url = "https://api-react-tarefas.vercel.app/tarefas/";
 
-  useEffect(() => {
-    
-    novasTarefas();
+  useEffect(
+    () => {
+      novasTarefas();
 
-    fetch(url)
-      .then((respFetch) => respFetch.json())
-      .then((respJson) => setTarefas(respJson))
-      .catch((err) => console.log(err));
-  }, [url], []);
+      fetch(url)
+        .then((respFetch) => respFetch.json())
+        .then((respJson) => setTarefas(respJson))
+        .catch((err) => console.log(err));
+    },
+    [url],
+    []
+  );
 
   function limparDados() {
     setId("");
     setTitulo("");
     setDescricao("");
+    setCategoria("");
   }
 
   function novasTarefas() {
@@ -35,32 +48,48 @@ export default function Tarefas() {
   }
 
   function gravarTarefas() {
-    if (titulo !== "" && descricao !== "") {
+    if (titulo !== "") {
       if (operacao === "criarRegistro") {
-        axios
-          .post(url, {
+        if (categoria !== "") {
+          const novaTarefa = {
             titulo: titulo,
-            descricao: descricao,
-          })
-          .then((response) => atualizaListaComNovaTarefa(response))
-          .catch((err) => console.log(err));
+            descricao: descricao || "",
+            categoria: categoria,
+          };
+
+          axios
+            .post(url, novaTarefa)
+            .then((response) => {
+              atualizaListaComNovaTarefa(response);
+              alert("Tarefa adicionada com sucesso!");
+            })
+            .catch((err) => console.log(err));
+        } else {
+          alert("Erro. Adicione uma categoria.");
+        }
       } else if (operacao === "editarRegistro") {
-        console.log(url + id);
-        axios
-          .put(url + id, {
-            titulo: titulo,
-            descricao: descricao,
-          })
-          .then((response) => atualizaListaComTarefaEditada(response))
-          .catch((err) => {
-            console.log(err);
-            alert(err.message);
-          });
+        if (titulo !== "" || descricao !== "") {
+          axios
+            .put(url + id, {
+              titulo: titulo,
+              descricao: descricao,
+              categoria: categoria,
+            })
+            .then((response) => {
+              atualizaListaComTarefaEditada(response);
+              alert("Tarefa editada com sucesso!");
+            })
+            .catch((err) => {
+              console.log(err);
+              alert(err.message);
+            });
+        } else {
+          console.log("Erro: Preencha pelo menos o título ou a categoria.");
+        }
       }
     } else {
-      console.log("Preencha os campos corretamente");
+      alert("Erro. Adicione um título.");
     }
-    alert('Tarefa adicionada')
   }
 
   function atualizaListaComTarefaEditada(response) {
@@ -70,6 +99,7 @@ export default function Tarefas() {
       let tasks = tarefas;
       tasks[index].titulo = titulo;
       tasks[index].descricao = descricao;
+      tasks[index].categoria = categoria;
 
       setTarefas(tasks);
       limparDados("");
@@ -81,7 +111,12 @@ export default function Tarefas() {
   function atualizaListaComNovaTarefa(response) {
     console.log(response);
     let { id, titulo, descricao } = response.data;
-    let obj = { id: id, titulo: titulo, descricao: descricao };
+    let obj = {
+      id: id,
+      titulo: titulo,
+      descricao: descricao,
+      categoria: categoria,
+    };
     let tasks = tarefas;
     tasks.push(obj);
     setTarefas(tasks);
@@ -90,29 +125,96 @@ export default function Tarefas() {
 
   const linkStyle = {
     textDecoration: "none",
-    color: 'black'
-  }
+    color: "black",
+  };
 
   return (
-    <>
-    <header>
-          <div id="menu" >
-            <div className="menu-left" >
-              <h2>Minhas Tarefas <VscTasklist/> </h2>
-            </div>
-          
-          <div className="menu-direita" >
+    <div id="App">
+      <header>
+        <div id="menu">
+          <div className="menu-left">
+            <h2>
+              Minhas Tarefas <VscTasklist />{" "}
+            </h2>
+          </div>
+
+          <div className="menu-direita">
             <ul>
-              <li> <Link to='/sobre'>Sobre</Link> </li>
+              <li>
+                {" "}
+                <Link to="/sobre">Sobre</Link>{" "}
+              </li>
             </ul>
           </div>
-          </div>
+        </div>
       </header>
       <div id="containerPrincipal">
-        <button> <Link to="/" style={linkStyle}> <FaArrowLeft/> Voltar para a lista</Link> </button>
+        <button>
+          {" "}
+          <Link to="/" style={linkStyle}>
+            {" "}
+            <FaArrowLeft /> Voltar para a lista
+          </Link>{" "}
+        </button>
 
         <div id="camposTarefa">
-          
+          <select
+            value={categoria}
+            onChange={(e) => setCategoria(e.target.value)}
+            style={{
+              color: coresCategorias[categoria] || "black",
+            }}
+          >
+            <option
+              value=""
+              style={{
+                color: "black",
+              }}
+            >
+              Selecione uma categoria
+            </option>
+            <option
+              value="Trabalho"
+              style={{
+                color: coresCategorias["Trabalho"] || "transparent",
+              }}
+            >
+              Trabalho
+            </option>
+            <option
+              value="Estudo"
+              style={{
+                color: coresCategorias["Estudo"] || "transparent",
+              }}
+            >
+              Estudo
+            </option>
+            <option
+              value="Pessoal"
+              style={{
+                color: coresCategorias["Pessoal"] || "transparent",
+              }}
+            >
+              Pessoal
+            </option>
+            <option
+              value="Casa"
+              style={{
+                color: coresCategorias["Casa"] || "transparent",
+              }}
+            >
+              Casa
+            </option>
+            <option
+              value="Outro"
+              style={{
+                color: coresCategorias["Outro"] || "transparent",
+              }}
+            >
+              Outro
+            </option>
+          </select>
+
           <input
             type="text"
             placeholder="Titulo da tarefa"
@@ -124,9 +226,8 @@ export default function Tarefas() {
           <textarea
             name="txtDescricao"
             id="descricaoTarefa"
-            placeholder="Adicione uma breve descrição"
-            cols="30"
-            rows="10"
+            placeholder="Adicione uma breve descrição (opcional)"
+            rows="3"
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
           ></textarea>
@@ -139,8 +240,7 @@ export default function Tarefas() {
             </button>
           </div>
         </div>
-        
       </div>
-    </>
+    </div>
   );
 }

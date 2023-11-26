@@ -1,6 +1,11 @@
+#App {
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100vh;
+}
+
 #containerPrincipal {
     margin: 0 auto;
-    max-width: 70vw;
+    max-width: 1150px;
     padding: 30px;
 }
 
@@ -11,7 +16,7 @@
 #containerSobre {
     padding: 20px;
     margin: 0 auto;
-    max-width: 70vw;
+    max-width: 1150px;
     border: 2px solid #b4d3eb;
     border-radius: 20px;
     margin-top: 20px;
@@ -21,7 +26,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 70vw;
+    max-width: 100%;
     margin: 0 auto;
     padding: 10px;
 }
@@ -41,8 +46,7 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 2px solid #b4d3eb;
-    border-radius: 20px;
+    border-bottom: 2px solid #b4d3eb;
     margin-top: 10px;
     padding: 10px;
 }
@@ -60,6 +64,11 @@ input, textarea {
     margin-bottom: 10px;
 }
 
+span {
+    font-weight: 500;
+    color: white;
+}
+
 header {
     background-color: rgb(0, 38, 255);
 }
@@ -70,11 +79,26 @@ header {
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
-    max-width: 70vw;
+    max-width: 1150px;
 }
 
 .menu-left {
     margin-left: 0 auto ;
+}
+
+.menu-left a {
+    text-decoration: none;
+}
+
+select {
+    width: 80%;
+    border: 2px solid #b4d3eb;
+    padding: 8px;
+    border-radius: 20px;
+}
+
+select option:hover {
+    background-color: transparent;
 }
 
 button {
@@ -118,6 +142,10 @@ nav {
 
 }
 
+.msgVazia {
+    text-align: center;
+}
+
 h1 {
     font-size: 1.5rem;
 }
@@ -128,7 +156,7 @@ h2 {
 
 ul {
     list-style: none;
-    max-width: 70vw;
+    max-width: 1150px;
 }
 
 ul li {

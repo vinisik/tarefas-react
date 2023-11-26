@@ -1,29 +1,38 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { IoIosAdd } from "react-icons/io";
+import { FaPlus } from "react-icons/fa6";
 import { VscTasklist } from "react-icons/vsc";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
-import './Tarefas.css'
+import "./Tarefas.css";
 
 export default function ListaTarefas() {
   const [tarefas, setTarefas] = useState([]);
-  const [id, setId] = useState("");
-  const [titulo, setTitulo] = useState("");
-  const [descricao, setDescricao] = useState("");
+  const [setId] = useState("");
+  const [setTitulo] = useState("");
+  const [setDescricao] = useState("");
   const [operacao, setOperacao] = useState("");
+  const [setCategoria] = useState("");
+
+  const [coresCategorias, setCoresCategorias] = useState({
+    Trabalho: "GoldenRod",
+    Estudo: "green",
+    Casa: "DarkSlateBlue",
+    Pessoal: "DarkCyan",
+    Outro: "grey",
+  });
 
   const url = "https://api-react-tarefas.vercel.app/tarefas/";
 
   const handleTarefa = () => {
     novasTarefas();
-    window.location.href = '/tarefas';
-  }
+    window.location.href = "/tarefas";
+  };
 
   const handleEditar = () => {
     editarTarefas();
-    window.location.href = '/tarefas'
-  }
+    window.location.href = "/tarefas";
+  };
 
   useEffect(() => {
     fetch(url)
@@ -38,64 +47,87 @@ export default function ListaTarefas() {
 
   function editarTarefas(cod) {
     let tarefa = tarefas.find((item) => item.id === cod);
-    const { id, titulo, descricao } = tarefa;
+    const { id, titulo, descricao, categoria } = tarefa;
     setOperacao("editarRegistro");
     setId(id);
     setTitulo(titulo);
     setDescricao(descricao);
-    window.location.href = '/tarefas'
+    setCategoria(categoria);
+    window.location.href = "/tarefas";
   }
 
   function apagarTarefas(cod) {
-    axios.delete(url  +  cod)
+    axios
+      .delete(url + cod)
       .then(() => setTarefas(tarefas.filter((item) => item.id !== cod)))
       .catch((erro) => console.log(erro));
-      alert('Tarefa deletada com sucesso!')
+    alert("Tarefa deletada com sucesso!");
   }
 
   return (
-    <div>
+    <div id="App">
       <header>
-          <div id="menu" >
-            <div className="menu-left" >
-              <h2>Minhas Tarefas <VscTasklist/> </h2>
-            </div>
-          
-          <div className="menu-direita" >
+        <div id="menu">
+          <div className="menu-left">
+            <Link to="/">
+              <h2>
+                Minhas Tarefas <VscTasklist />{" "}
+              </h2>
+            </Link>
+          </div>
+  
+          <div className="menu-direita">
             <ul>
-              <li> <Link to='/sobre'>Sobre</Link> </li>
+              <li>
+                {" "}
+                <Link to="/sobre">Sobre</Link>{" "}
+              </li>
             </ul>
           </div>
-          </div>
+        </div>
       </header>
       <div id="containerPrincipal">
-      <button className="btn-criar-tarefa" type="button" onClick={handleTarefa} >Criar Tarefa <IoIosAdd /> </button>
-
-      {tarefas
-        ? tarefas.map((item) => {
-            return (
-              <div id="tarefaContainer" key={item.id}>
-                <div className="tarefa" >
-                  <div id="tituloTarefa">{item.titulo}</div>{" "}
-                  <div id="tarefaDescricao"> {item.descricao}</div> {"    "}
+        <button
+          className="btn-criar-tarefa"
+          type="button"
+          onClick={handleTarefa}
+        >
+          Criar Tarefa <FaPlus />{" "}
+        </button>
+  
+        {tarefas && tarefas.length > 0 ? (
+          tarefas.map((item) => (
+            <div id="tarefaContainer" key={item.id}>
+              <div className="tarefa">
+                <div id="tituloTarefa">
+                  {item.titulo} -{" "}
+                  <span
+                    style={{
+                      backgroundColor:
+                        coresCategorias[item.categoria] || "transparent",
+                      borderRadius: "4px",
+                      padding: "2px",
+                    }}
+                  >
+                    {item.categoria}
+                  </span>
                 </div>
-                  <div className="botoes-tarefa" >
-                    <FaPencil
-                      className="icone"
-                      onClick={() => editarTarefas(item.id)}
-                    />
-                    <MdDeleteForever
-                      className="icone iconeDeletar"
-                      onClick={() => apagarTarefas(item.id)}
-                    />
-                  </div>
+                <div id="tarefaDescricao"> {item.descricao}</div>
               </div>
-            );
-          })
-        : false}
-
+              <div className="botoes-tarefa">
+                <MdDeleteForever
+                  className="icone iconeDeletar"
+                  onClick={() => apagarTarefas(item.id)}
+                />
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="msgVazia">
+            <p>Você não tem nenhuma tarefa. Clique em "criar tarefa" para adicionar uma nova tarefa.</p>
+          </div>
+        )}
+      </div>
     </div>
-    </div>
-    
   );
 }

@@ -3,7 +3,8 @@ import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
 import { VscTasklist } from "react-icons/vsc";
 import { MdDeleteForever } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { MdModeEdit } from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
 import "./Tarefas.css";
 
 export default function ListaTarefas() {
@@ -13,6 +14,8 @@ export default function ListaTarefas() {
   const [setDescricao] = useState("");
   const [operacao, setOperacao] = useState("");
   const [setCategoria] = useState("");
+
+  const navigate = useNavigate();
 
   const [coresCategorias, setCoresCategorias] = useState({
     Trabalho: "GoldenRod",
@@ -24,14 +27,15 @@ export default function ListaTarefas() {
 
   const url = "https://api-react-tarefas.vercel.app/tarefas/";
 
-  const handleTarefa = () => {
-    novasTarefas();
-    window.location.href = "/tarefas";
-  };
-
-  const handleEditar = () => {
-    editarTarefas();
-    window.location.href = "/tarefas";
+  function handleTarefa(id, titulo, descricao, categoria) {
+    navigate("/tarefas", {
+      state: {
+        id: id,
+        titulo: titulo,
+        descricao: descricao,
+        categoria: categoria,
+      }
+    });
   };
 
   useEffect(() => {
@@ -61,7 +65,7 @@ export default function ListaTarefas() {
       .delete(url + cod)
       .then(() => setTarefas(tarefas.filter((item) => item.id !== cod)))
       .catch((erro) => console.log(erro));
-    alert("Tarefa deletada com sucesso!");
+    console("Tarefa deletada com sucesso!");
   }
 
   return (
@@ -90,7 +94,7 @@ export default function ListaTarefas() {
         <button
           className="btn-criar-tarefa"
           type="button"
-          onClick={handleTarefa}
+          onClick={() => handleTarefa(0, "", "", "")}
         >
           Criar Tarefa <FaPlus />{" "}
         </button>
@@ -115,6 +119,11 @@ export default function ListaTarefas() {
                 <div id="tarefaDescricao"> {item.descricao}</div>
               </div>
               <div className="botoes-tarefa">
+                <MdModeEdit
+                  className="icone iconeEditar"
+                  onClick={() => handleTarefa(item.id, item.titulo, item.descricao, item.categoria)}
+                />
+
                 <MdDeleteForever
                   className="icone iconeDeletar"
                   onClick={() => apagarTarefas(item.id)}

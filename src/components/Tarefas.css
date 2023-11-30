@@ -131,6 +131,10 @@ button:hover {
     font-size: 1.6em;
 }
 
+.iconeEditar {
+    font-size: 1.4em;
+}
+
 .icone:hover {
     cursor: pointer;
 }

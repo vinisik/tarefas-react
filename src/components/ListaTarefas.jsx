@@ -9,11 +9,11 @@ import "./Tarefas.css";
 
 export default function ListaTarefas() {
   const [tarefas, setTarefas] = useState([]);
-  const [setId] = useState("");
-  const [setTitulo] = useState("");
-  const [setDescricao] = useState("");
+  const [id, setId] = useState("");
+  const [titulo, setTitulo] = useState("");
+  const [descricao, setDescricao] = useState("");
   const [operacao, setOperacao] = useState("");
-  const [setCategoria] = useState("");
+  const [categoria, setCategoria] = useState("");
 
   const navigate = useNavigate();
 
@@ -26,24 +26,18 @@ export default function ListaTarefas() {
   });
 
   const url = "https://api-react-tarefas.vercel.app/tarefas/";
-
-  function handleTarefa(id, titulo, descricao, categoria) {
-    navigate("/tarefas", {
-      state: {
-        id: id,
-        titulo: titulo,
-        descricao: descricao,
-        categoria: categoria,
-      }
-    });
-  };
-
+  
   useEffect(() => {
     fetch(url)
       .then((respFetch) => respFetch.json())
       .then((respJson) => setTarefas(respJson))
       .catch((err) => console.log(err));
   }, [url]);
+
+  function handleTarefas(){
+    novasTarefas();
+    window.location.href = "/tarefas"
+  }
 
   function novasTarefas() {
     setOperacao("criarRegistro");
@@ -57,7 +51,12 @@ export default function ListaTarefas() {
     setTitulo(titulo);
     setDescricao(descricao);
     setCategoria(categoria);
-    window.location.href = "/tarefas";
+    navigate("/editartarefa", {state: {
+      id: id,
+      titulo: titulo,
+      descricao: descricao,
+      categoria: categoria,
+    }})
   }
 
   function apagarTarefas(cod) {
@@ -65,7 +64,6 @@ export default function ListaTarefas() {
       .delete(url + cod)
       .then(() => setTarefas(tarefas.filter((item) => item.id !== cod)))
       .catch((erro) => console.log(erro));
-    console("Tarefa deletada com sucesso!");
   }
 
   return (
@@ -94,7 +92,7 @@ export default function ListaTarefas() {
         <button
           className="btn-criar-tarefa"
           type="button"
-          onClick={() => handleTarefa(0, "", "", "")}
+          onClick={() => handleTarefas()}
         >
           Criar Tarefa <FaPlus />{" "}
         </button>
@@ -119,14 +117,16 @@ export default function ListaTarefas() {
                 <div id="tarefaDescricao"> {item.descricao}</div>
               </div>
               <div className="botoes-tarefa">
-                <MdModeEdit
-                  className="icone iconeEditar"
-                  onClick={() => handleTarefa(item.id, item.titulo, item.descricao, item.categoria)}
-                />
+                <Link to="/tarefas" />
 
                 <MdDeleteForever
                   className="icone iconeDeletar"
                   onClick={() => apagarTarefas(item.id)}
+                />
+
+                <MdModeEdit
+                  className="icone iconeEditar"
+                  onClick={() => editarTarefas(item.id, item.titulo, item.descricao, item.categoria)}
                 />
               </div>
             </div>

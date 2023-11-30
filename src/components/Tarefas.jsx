@@ -56,12 +56,11 @@ export default function Tarefas() {
             descricao: descricao || "",
             categoria: categoria,
           };
-
           axios
             .post(url, novaTarefa)
             .then((response) => {
               atualizaListaComNovaTarefa(response);
-              alert("Tarefa adicionada com sucesso!");
+              alert("Tarefa adicionada!");
             })
             .catch((err) => console.log(err));
         } else {
@@ -77,7 +76,6 @@ export default function Tarefas() {
             })
             .then((response) => {
               atualizaListaComTarefaEditada(response);
-              alert("Tarefa editada com sucesso!");
             })
             .catch((err) => {
               console.log(err);
@@ -149,13 +147,11 @@ export default function Tarefas() {
         </div>
       </header>
       <div id="containerPrincipal">
-        <button>
-          {" "}
+
           <Link to="/" style={linkStyle}>
             {" "}
             <FaArrowLeft /> Voltar para a lista
-          </Link>{" "}
-        </button>
+          </Link>
 
         <div id="camposTarefa">
           <select

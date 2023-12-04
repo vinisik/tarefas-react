@@ -1,3 +1,5 @@
+//Vinícius Siqueira e Gabriel Pereira
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
@@ -34,6 +36,7 @@ export default function ListaTarefas() {
       .catch((err) => console.log(err));
   }, [url]);
 
+  //função para tratar a criação de novas tarefas para redirecionar para nova página
   function handleTarefas(){
     novasTarefas();
     window.location.href = "/tarefas"
@@ -43,6 +46,7 @@ export default function ListaTarefas() {
     setOperacao("criarRegistro");
   }
 
+  //função que busca o id da tarefa selecionada e carrega os dados para a página de edição
   function editarTarefas(cod) {
     let tarefa = tarefas.find((item) => item.id === cod);
     const { id, titulo, descricao, categoria } = tarefa;
@@ -59,6 +63,7 @@ export default function ListaTarefas() {
     }})
   }
 
+  //utiliza o metodo delete, que deleta o indice da tarefa no banco de dados
   function apagarTarefas(cod) {
     axios
       .delete(url + cod)
@@ -119,15 +124,16 @@ export default function ListaTarefas() {
               <div className="botoes-tarefa">
                 <Link to="/tarefas" />
 
+                <MdModeEdit
+                  className="icone iconeEditar"
+                  onClick={() => editarTarefas(item.id, item.titulo, item.descricao, item.categoria)}
+                />
+                
                 <MdDeleteForever
                   className="icone iconeDeletar"
                   onClick={() => apagarTarefas(item.id)}
                 />
 
-                <MdModeEdit
-                  className="icone iconeEditar"
-                  onClick={() => editarTarefas(item.id, item.titulo, item.descricao, item.categoria)}
-                />
               </div>
             </div>
           ))

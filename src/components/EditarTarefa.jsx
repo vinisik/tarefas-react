@@ -1,6 +1,8 @@
+//Vinícius Siqueira e Gabriel Pereira
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { VscTasklist } from "react-icons/vsc";
 import { FaArrowLeft } from "react-icons/fa";
 import "./Tarefas.css";
@@ -25,6 +27,7 @@ export default function EditarTarefa() {
 
   const url = "https://api-react-tarefas.vercel.app/tarefas/";
 
+  //useEffect que "captura os dados enviados da outra rota"
   useEffect(() => {
     console.log("entrou no useEffect do location")
     if (location.state) {
@@ -51,6 +54,7 @@ export default function EditarTarefa() {
     setCategoria("");
   }
 
+  //função de salvar os dados editados utilizando o axios.put, tratando a url e o id da tarefa
   function salvarEdicao() {
     if (titulo !== "" || descricao !== "") {
       axios

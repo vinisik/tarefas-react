@@ -12,7 +12,6 @@ root.render(
   <BrowserRouter>
       <Routes>
         <Route path="/" element={<ListaTarefas />} />
-        {/* <Route path="listatarefas" element={<ListaTarefas />} /> */}
         <Route path="tarefas" element={<Tarefas />} />
         <Route path="editartarefa" element={<EditarTarefa />} />
         <Route path="sobre" element={<Sobre/>} />

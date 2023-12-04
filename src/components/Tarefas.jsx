@@ -1,3 +1,5 @@
+//Vinícius Siqueira e Gabriel Pereira
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -47,6 +49,7 @@ export default function Tarefas() {
     setOperacao("criarRegistro");
   }
 
+  //função que pega os dados editados da tarefa e envia de volta para a página principal
   function gravarTarefas() {
     if (titulo !== "") {
       if (operacao === "criarRegistro") {

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
-import { MdModeEdit } from "react-icons/md";
+import { MdEditSquare } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Header from "./Header";
@@ -110,7 +110,7 @@ export default function ListaTarefas() {
               <div className="botoes-tarefa">
                 <Link to="/tarefas" />
 
-                <MdModeEdit
+                <MdEditSquare
                   className="icone iconeEditar"
                   onClick={() => editarTarefas(item.id, item.titulo, item.descricao, item.categoria)}
                 />

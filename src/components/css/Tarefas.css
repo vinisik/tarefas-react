@@ -96,7 +96,7 @@ button {
     margin-right: 10px;
     background-color: #c3e3fb;
     border: none;
-    padding: 15px;
+    padding: 10px;
     border-radius: 15px;
 }
 
@@ -123,6 +123,7 @@ button:hover {
 }
 
 .iconeEditar {
+    color: blue;
     font-size: 1.4em;
 }
 

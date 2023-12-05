@@ -91,7 +91,7 @@ export default function EditarTarefa() {
       <Header/>
       <div id="containerPrincipal">
         
-          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+          <Link to="/principal" style={{ textDecoration: "none", color: "black" }}>
             {" "}
             <FaArrowLeft /> Voltar para a lista
           </Link>

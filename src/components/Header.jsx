@@ -20,9 +20,8 @@ const Header = () => {
         <div className="menu-direita">
           <ul>
             <li>
-              <Link to="/sobre">Sobre</Link>
+              <Link to="/">Menu</Link>
             </li>
-            <a href="https://github.com/vinisik/tarefas-react" target="_blank" rel="noopener noreferrer"><FaGithub className="icone-github"/></a>
           </ul>
         </div>
       </div>

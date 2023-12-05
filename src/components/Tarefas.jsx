@@ -140,7 +140,7 @@ export default function Tarefas() {
       <Header/>
       <div id="containerPrincipal">
 
-          <Link to="/" style={linkStyle}>
+          <Link to="/principal" style={linkStyle}>
             {" "}
             <FaArrowLeft /> Voltar para a lista
           </Link>

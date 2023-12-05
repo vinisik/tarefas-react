@@ -3,11 +3,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
-import { VscTasklist } from "react-icons/vsc";
 import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import "./Tarefas.css";
+import { Helmet } from "react-helmet";
+import Header from "./Header";
+import "./css/Tarefas.css";
+import Footer from "./Footer";
 
 export default function ListaTarefas() {
   const [tarefas, setTarefas] = useState([]);
@@ -39,7 +41,7 @@ export default function ListaTarefas() {
   //função para tratar a criação de novas tarefas para redirecionar para nova página
   function handleTarefas(){
     novasTarefas();
-    window.location.href = "/tarefas"
+    navigate("/tarefas")
   }
 
   function novasTarefas() {
@@ -73,26 +75,10 @@ export default function ListaTarefas() {
 
   return (
     <div id="App">
-      <header>
-        <div id="menu">
-          <div className="menu-left">
-            <Link to="/">
-              <h2>
-                Minhas Tarefas <VscTasklist />{" "}
-              </h2>
-            </Link>
-          </div>
-  
-          <div className="menu-direita">
-            <ul>
-              <li>
-                {" "}
-                <Link to="/sobre">Sobre</Link>{" "}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </header>
+      <Helmet>
+        <title>Minhas Tarefas - Início</title>
+      </Helmet>
+      <Header/>
       <div id="containerPrincipal">
         <button
           className="btn-criar-tarefa"
@@ -139,10 +125,11 @@ export default function ListaTarefas() {
           ))
         ) : (
           <div className="msgVazia">
-            <p>Você não tem nenhuma tarefa. Clique em "criar tarefa" para adicionar uma nova tarefa.</p>
+            <p>Você não tem nenhuma tarefa. Clique em "criar tarefa" para adicionar uma nova.</p>
           </div>
         )}
       </div>
+      <Footer/>
     </div>
   );
 }

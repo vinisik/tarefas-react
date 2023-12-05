@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
-import { VscTasklist } from "react-icons/vsc";
 import { FaArrowLeft } from "react-icons/fa";
-import "./Tarefas.css";
+import Header from "./Header";
+import "./css/Tarefas.css";
+import Footer from "./Footer";
+import { Helmet } from "react-helmet";
 
 export default function EditarTarefa() {
   // const { id } = useParams();
@@ -27,7 +29,7 @@ export default function EditarTarefa() {
 
   const url = "https://api-react-tarefas.vercel.app/tarefas/";
 
-  //useEffect que "captura os dados enviados da outra rota"
+  //useEffect que "captura" os dados enviados da outra rota"
   useEffect(() => {
     console.log("entrou no useEffect do location")
     if (location.state) {
@@ -83,24 +85,10 @@ export default function EditarTarefa() {
 
   return (
     <div id="App">
-      <header>
-        <div id="menu">
-          <div className="menu-left">
-            <h2>
-              Minhas Tarefas <VscTasklist />{" "}
-            </h2>
-          </div>
-
-          <div className="menu-direita">
-            <ul>
-              <li>
-                {" "}
-                <Link to="/sobre">Sobre</Link>{" "}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </header>
+      <Helmet>
+        <title>Minhas Tarefas - Editar</title>
+      </Helmet>
+      <Header/>
       <div id="containerPrincipal">
         
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>
@@ -169,6 +157,7 @@ export default function EditarTarefa() {
           <p>Carregando tarefa...</p>
         )}
       </div>
+      <Footer/>
     </div>
   );
 }

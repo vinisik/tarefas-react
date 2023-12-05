@@ -5,7 +5,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { VscTasklist } from "react-icons/vsc";
 import { FaArrowLeft } from "react-icons/fa";
-import "./Tarefas.css";
+import "./css/Tarefas.css";
+import Header from "./Header";
+import Footer from "./Footer";
+import { Helmet } from "react-helmet";
 
 export default function Tarefas() {
   const [tarefas, setTarefas] = useState([]);
@@ -131,24 +134,10 @@ export default function Tarefas() {
 
   return (
     <div id="App">
-      <header>
-        <div id="menu">
-          <div className="menu-left">
-            <h2>
-              Minhas Tarefas <VscTasklist />{" "}
-            </h2>
-          </div>
-
-          <div className="menu-direita">
-            <ul>
-              <li>
-                {" "}
-                <Link to="/sobre">Sobre</Link>{" "}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </header>
+      <Helmet>
+        <title>Minhas Tarefas - Criar</title>
+      </Helmet>
+      <Header/>
       <div id="containerPrincipal">
 
           <Link to="/" style={linkStyle}>
@@ -240,6 +229,7 @@ export default function Tarefas() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

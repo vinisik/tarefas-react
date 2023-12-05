@@ -1,8 +1,15 @@
 #App {
     font-family: Arial, Helvetica, sans-serif;
-    height: 100vh;
+    flex: 1;
 }
 
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/* containers */
 #containerPrincipal {
     margin: 0 auto;
     max-width: 1150px;
@@ -20,6 +27,47 @@
     border: 2px solid #b4d3eb;
     border-radius: 20px;
     margin-top: 20px;
+}
+
+/* estilos da tarefa na página principal */
+#tarefaContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #b4d3eb;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+#tituloTarefa {
+    font-weight: 600;
+}
+
+span {
+    font-weight: 500;
+    color: white;
+}
+
+/* elementos de input */
+label {
+    margin-bottom: 10px;
+}
+
+input, textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+select {
+    width: 80%;
+    border: 2px solid #b4d3eb;
+    padding: 8px;
+    border-radius: 20px;
+}
+
+select option:hover {
+    background-color: transparent;
 }
 
 #camposTarefa {
@@ -42,66 +90,8 @@ textarea {
     resize: none;
 }
 
-#tarefaContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 2px solid #b4d3eb;
-    border-radius: 20px;
-    margin-top: 10px;
-    padding: 10px;
-}
 
-#tituloTarefa {
-    font-weight: 600;
-}
-
-label {
-    margin-bottom: 10px;
-}
-
-input, textarea {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-span {
-    font-weight: 500;
-    color: white;
-}
-
-header {
-    background-color: rgb(0, 38, 255);
-}
-
-#menu {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
-    max-width: 1150px;
-}
-
-.menu-left {
-    margin-left: 0 auto ;
-}
-
-.menu-left a {
-    text-decoration: none;
-}
-
-select {
-    width: 80%;
-    border: 2px solid #b4d3eb;
-    padding: 8px;
-    border-radius: 20px;
-}
-
-select option:hover {
-    background-color: transparent;
-}
-
+/* botões e ícones */
 button {
     margin-right: 10px;
     background-color: #c3e3fb;
@@ -147,9 +137,12 @@ nav {
 
 }
 
+/* fontes */
 .msgVazia {
     text-align: center;
+    color: rgb(145, 145, 145);
 }
+
 
 h1 {
     font-size: 1.5rem;
@@ -158,6 +151,7 @@ h1 {
 h2 {
     color: white;
 }
+/* elementos de lista */
 
 ul {
     list-style: none;

@@ -11,11 +11,12 @@ import './css/Tarefas.css'
 
 export default function Sobre() {
   return (
-    <>
+    <div id="App" >
       <Helmet>
         <title>Minhas Tarefas - Sobre</title>
       </Helmet>
       <Header/>
+      <div id="containerPrincipal">
 
       <div id="containerSobre">
         <Link to="/" style={{ textDecoration: "none", color: "black" }}>
@@ -25,8 +26,8 @@ export default function Sobre() {
         <h1>Sobre o projeto</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque quod tenetur velit qui eveniet vero ab incidunt alias molestiae et repellat at, asperiores accusantium temporibus. Dolorum voluptates repudiandae laboriosam nihil?</p>
       </div>
-
+    </div>
       <Footer/>
-    </>
+    </div>
   );
 }
